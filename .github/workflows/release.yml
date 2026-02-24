@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact_name: clint
+            asset_name: clint-linux-amd64
+          - os: windows-latest
+            artifact_name: clint.exe
+            asset_name: clint-windows-amd64.exe
+          - os: macos-latest
+            artifact_name: clint
+            asset_name: clint-macos-amd64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Build release binary
+        run: cargo build --release
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/release/${{ matrix.artifact_name }}
+          generate_release_notes: true
