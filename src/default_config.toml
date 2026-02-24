@@ -1,0 +1,65 @@
+# clint configuration
+# See https://github.com/itsFM-Codes/clint for documentation
+
+[general]
+enabled = true
+extensions = ["c", "h", "cpp", "hpp", "cc", "cxx", "hxx"]
+exclude = ["build", "vendor", "third_party", "node_modules", ".git"]
+severity_level = "warning"
+
+[unsafe_functions]
+enabled = true
+# Built-in banned functions (known to be unsafe)
+banned = [
+    "gets",      # No bounds checking
+    "strcpy",    # No bounds checking
+    "strcat",    # No bounds checking
+    "sprintf",   # No bounds checking
+    "vsprintf",  # No bounds checking
+    "scanf",     # Can overflow buffers
+    "sscanf",    # Can overflow buffers
+    "fscanf",    # Can overflow buffers
+    "tmpnam",    # Race condition
+    "mktemp",    # Race condition
+    "getpw",     # Not thread-safe
+    "getlogin",  # Not thread-safe
+]
+# Add your own banned functions here
+extra_banned = []
+
+[style]
+enabled = true
+max_line_length = 120
+indent_width = 4
+indent_style = "spaces"       # "spaces" or "tabs"
+brace_style = "k&r"           # "k&r" or "allman"
+trailing_whitespace = true     # Flag trailing whitespace
+require_braces = true          # Require braces for if/for/while
+max_function_lines = 100
+
+[style.naming]
+functions = "snake_case"       # "snake_case", "camelCase", "PascalCase"
+variables = "snake_case"       # "snake_case", "camelCase"
+macros = "UPPER_SNAKE_CASE"   # "UPPER_SNAKE_CASE"
+types = "PascalCase"           # "PascalCase", "snake_case"
+constants = "UPPER_SNAKE_CASE" # "UPPER_SNAKE_CASE", "k_prefixed"
+
+[security]
+enabled = true
+check_format_strings = true    # Detect format string vulnerabilities
+check_buffer_overflow = true   # Detect buffer overflow patterns
+check_integer_overflow = true  # Detect integer overflow risks
+check_null_deref = true        # Detect missing NULL checks after malloc
+ban_system_calls = false       # Ban system()/popen()/exec*()
+
+[best_practices]
+enabled = true
+require_include_guards = true  # Require #pragma once or #ifndef guards
+ban_goto = true                # Flag goto usage
+check_magic_numbers = true     # Flag magic numbers in code
+max_nesting_depth = 4          # Maximum brace nesting depth
+require_default_in_switch = true
+check_implicit_fallthrough = true
+warn_todo_comments = true      # Flag TODO/FIXME/HACK comments
+max_function_params = 6        # Max parameters per function
+check_unused_includes = false  # Experimental: check unused includes

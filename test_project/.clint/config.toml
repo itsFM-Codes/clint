@@ -1,0 +1,46 @@
+[general]
+enabled = true
+extensions = ["c", "h", "cpp", "hpp"]
+exclude = ["build"]
+
+[unsafe_functions]
+enabled = true
+banned = ["gets", "strcpy", "strcat", "sprintf", "vsprintf", "scanf", "tmpnam", "mktemp"]
+extra_banned = []
+
+[style]
+enabled = true
+max_line_length = 80
+indent_width = 4
+indent_style = "spaces"
+brace_style = "k&r"
+trailing_whitespace = true
+require_braces = true
+max_function_lines = 50
+
+[style.naming]
+functions = "snake_case"
+variables = "snake_case"
+macros = "UPPER_SNAKE_CASE"
+types = "PascalCase"
+constants = "UPPER_SNAKE_CASE"
+
+[security]
+enabled = true
+check_format_strings = true
+check_buffer_overflow = true
+check_integer_overflow = true
+check_null_deref = true
+ban_system_calls = true
+
+[best_practices]
+enabled = true
+require_include_guards = true
+ban_goto = true
+check_magic_numbers = true
+max_nesting_depth = 3
+require_default_in_switch = true
+check_implicit_fallthrough = true
+warn_todo_comments = true
+max_function_params = 4
+check_unused_includes = false

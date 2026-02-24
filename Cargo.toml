@@ -1,0 +1,14 @@
+[package]
+name = "clint"
+version = "1.0.0"
+edition = "2021"
+description = "A fast C/C++ linter for detecting errors, enforcing style, finding security vulnerabilities, and checking best practices"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+walkdir = "2"
+colored = "2"
+regex = "1"
+globset = "0.4"
