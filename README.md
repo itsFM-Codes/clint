@@ -129,6 +129,22 @@ Options:
   -V, --version  Print version
 ```
 
+## Troubleshooting
+
+### Output Not Displaying
+
+If running `clint check` produces no visible output, it's likely due to output buffering. Force output to display by redirecting stderr and explicitly capturing it:
+
+```bash
+# PowerShell
+$output = & clint check 2>&1; $output
+
+# Bash/Unix
+clint check 2>&1 | cat
+```
+
+This is a known issue with large outputs in some terminal environments. The linter still runs correctly; the output just isn't flushed to the display.
+
 ## License
 
 MIT
