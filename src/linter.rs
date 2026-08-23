@@ -5,6 +5,7 @@ use crate::rules::security::SecurityRule;
 use crate::rules::style::StyleRule;
 use crate::rules::unsafe_functions::UnsafeFunctionsRule;
 use crate::rules::Rule;
+use std::collections::HashSet;
 use std::path::{Path, PathBuf};
 use walkdir::WalkDir;
 
@@ -78,6 +79,22 @@ impl Linter {
         }
     }
 
+    fn ignored_lines(content: &str) -> HashSet<usize> {
+        let mut ignored = HashSet::new();
+
+        for (idx, line) in content.lines().enumerate() {
+            let line_num = idx + 1;
+            if let Some(pos) = line.find("// clint-ignore") {
+                ignored.insert(line_num);
+                if line[..pos].trim().is_empty() {
+                    ignored.insert(line_num + 1);
+                }
+            }
+        }
+
+        ignored
+    }
+
     fn lint_file(&self, path: &Path, collection: &mut DiagnosticCollection) {
         let content = match std::fs::read_to_string(path) {
             Ok(c) => c,
@@ -87,8 +104,14 @@ impl Linter {
             }
         };
 
+        let ignored_lines = Self::ignored_lines(&content);
+
         for rule in &self.rules {
-            let diags = rule.check(path, &content, &self.config);
+            let diags = rule
+                .check(path, &content, &self.config)
+                .into_iter()
+                .filter(|diag| !ignored_lines.contains(&diag.line))
+                .collect();
             collection.extend(diags);
         }
     }
