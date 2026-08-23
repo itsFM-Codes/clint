@@ -1,6 +1,7 @@
 pub mod unsafe_functions;
 pub mod style;
 pub mod security;
+pub mod semantic;
 pub mod best_practices;
 
 use crate::config::Config;
