@@ -382,7 +382,7 @@ pub fn analyze(path: &Path, content: &str, config: &Config) -> Vec<Diagnostic> {
     let new_re = Regex::new(r"\b([A-Za-z_]\w*)\s*=\s*new\b").unwrap();
     let alias_re =
         Regex::new(r"\b([A-Za-z_]\w*)\s*=\s*([A-Za-z_]\w*)\s*;").unwrap();
-    let assignment_re = Regex::new(r"\b([A-Za-z_]\w*)\s*=(?!=)").unwrap();
+    let assignment_re = Regex::new(r"\b([A-Za-z_]\w*)\s*=\s*[^=]").unwrap();
     let null_assign_re =
         Regex::new(r"\b([A-Za-z_]\w*)\s*=\s*(?:NULL|nullptr|0)\s*;").unwrap();
     let assert_re = Regex::new(
