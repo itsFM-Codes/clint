@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - semanticsverify
+  pull_request:
+    branches:
+      - dev
 
 jobs:
   build:
