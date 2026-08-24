@@ -1,6 +1,6 @@
 [package]
 name = "clint"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2021"
 description = "A fast C/C++ linter for detecting errors, enforcing style, finding security vulnerabilities, and checking best practices"
 
